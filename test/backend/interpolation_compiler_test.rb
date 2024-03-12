@@ -73,7 +73,7 @@ class InterpolationCompilerTest < I18n::TestCase
     assert_equal 'b%{a}',         compile_and_interpolate('%{a}%%{a}',        :a    => 'b')
     assert_equal '%{a}',          compile_and_interpolate('%%{a}')
     assert_equal '%{a}',          compile_and_interpolate('%%{a}',            :a    => 'a')
-    # assert_raises(I18n::MissingInterpolationArgument) do # nothing was raised
+    # assert_raises(I18n::MissingInterpolationArgument) do # Actual: "%%%{a}". nothing was raised
     #   compile_and_interpolate('%%%{a}')
     # end
     # assert_equal '%b',            compile_and_interpolate('%%%{a}',           :a    => 'b') # Actual: "%%{a}"

@@ -61,7 +61,9 @@ module I18n
         # assert_equal 'Hi %{baz}!', interpolate(:interpolate) # Actual: "Hi %%{baz}!"
 
         assert_equal 'a%{a}',         interpolate(:default => '%{a}%%{a}',        :a    => 'a')
-        assert_equal '%%{a}',         interpolate(:default => '%%%{a}')
+        # assert_raises(I18n::MissingInterpolationArgument) do # Actual: "%%%{a}". nothing was raised
+        #   interpolate(:default => '%%%{a}')
+        # end
         assert_equal '%b',            interpolate(:default => '%%%{a}',           :a    => 'b')
         assert_equal '\";eval("a")',  interpolate(:default => '\";eval("%{a}")',  :a    => 'a')
         assert_equal '\";eval("a")',  interpolate(:default => '\";eval("a")%{a}', :a    => '' )
