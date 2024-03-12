@@ -55,8 +55,8 @@ class I18nInterpolateTest < I18n::TestCase
     assert_equal "%{num} %<num>d", I18n.interpolate("%%{num} %%<num>d", :num => 1)
 
     assert_equal 'a%{a}',         I18n.interpolate('%{a}%%{a}',        :a    => 'a')
-    assert_equal '%{a}',          I18n.interpolate('%%{a}', EMPTY_HASH)
-    assert_equal '%%{a}',         I18n.interpolate('%%%{a}', EMPTY_HASH)
+    assert_equal '%{a}',          I18n.interpolate('%%{a}', I18n::EMPTY_HASH)
+    assert_equal '%%{a}',         I18n.interpolate('%%%{a}', I18n::EMPTY_HASH)
     assert_equal '\";eval("a")',  I18n.interpolate('\";eval("%{a}")',  :a    => 'a')
     assert_equal '\";eval("a")',  I18n.interpolate('\";eval("a")%{a}', :a    => '' )
   end
