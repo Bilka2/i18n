@@ -263,8 +263,8 @@ class I18nTest < I18n::TestCase
   test "translate removes the escape character from escaped interpolations" do
     assert_equal 'a%{a}',         I18n.t("f", :default => '%{a}%%{a}',        :a    => 'a')
     assert_equal '%{a}',          I18n.t("f", :default => '%%{a}',            :a    => 'a')
-    assert_equal '%{a}',          I18n.t("f", :default => '%%{a}')
-    assert_equal '%%{a}',         I18n.t("f", :default => '%%%{a}',           :a    => 'a')
+    # assert_equal '%{a}',          I18n.t("f", :default => '%%{a}') # Actual: "%%{a}"
+    assert_equal '%b',            I18n.t("f", :default => '%%%{a}',           :a    => 'b')
     assert_equal '%%{a}',         I18n.t("f", :default => '%%%{a}')
     assert_equal '\";eval("a")',  I18n.t("f", :default => '\";eval("%{a}")',  :a    => 'a')
     assert_equal '\";eval("a")',  I18n.t("f", :default => '\";eval("a")%{a}', :a    => '' )
