@@ -50,8 +50,15 @@ class I18nInterpolateTest < I18n::TestCase
 
   test "% acts as escape character in String interpolation" do
     assert_equal "%{first}", I18n.interpolate("%%{first}", :first => 'Masao')
+    assert_equal "%%{first}", I18n.interpolate("%%%{first}", :first => 'Masao')
     assert_equal "% 1", I18n.interpolate("%% %<num>d", :num => 1.0)
     assert_equal "%{num} %<num>d", I18n.interpolate("%%{num} %%<num>d", :num => 1)
+
+    assert_equal 'a%{a}',         I18n.interpolate('%{a}%%{a}',        :a    => 'a')
+    assert_equal '%{a}',          I18n.interpolate('%%{a}', EMPTY_HASH)
+    assert_equal '%%{a}',         I18n.interpolate('%%%{a}', EMPTY_HASH)
+    assert_equal '\";eval("a")',  I18n.interpolate('\";eval("%{a}")',  :a    => 'a')
+    assert_equal '\";eval("a")',  I18n.interpolate('\";eval("a")%{a}', :a    => '' )
   end
 
   def test_sprintf_mix_unformatted_and_formatted_named_placeholders

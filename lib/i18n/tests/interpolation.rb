@@ -52,6 +52,21 @@ module I18n
         end
       end
 
+      test "interpolation: stripes the escape character from variables" do
+        assert_equal '%{baz}', interpolate(:foo => :bar, :default => '%%{baz}')
+
+        assert_equal '%{baz}', interpolate(:default => '%%{baz}')
+
+        I18n.backend.store_translations(:en, :interpolate => 'Hi %%{baz}!')
+        assert_equal 'Hi %{baz}!', interpolate(:interpolate)
+
+        assert_equal 'a%{a}',         interpolate(:default => '%{a}%%{a}',        :a    => 'a')
+        assert_equal '%%{a}',         interpolate(:default => '%%%{a}')
+        assert_equal '%%{a}',         interpolate(:default => '%%%{a}',           :a    => 'a')
+        assert_equal '\";eval("a")',  interpolate(:default => '\";eval("%{a}")',  :a    => 'a')
+        assert_equal '\";eval("a")',  interpolate(:default => '\";eval("a")%{a}', :a    => '' )
+      end
+
       test "interpolation: it does not change the original, stored translation string" do
         I18n.backend.store_translations(:en, :interpolate => 'Hi %{name}!')
         assert_equal 'Hi David!', interpolate(:interpolate, :name => 'David')
