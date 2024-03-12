@@ -261,13 +261,13 @@ class I18nTest < I18n::TestCase
   end
 
   test "translate removes the escape character from escaped interpolations" do
-    assert_equal 'a%{a}',         I18n.t('%{a}%%{a}',        :a    => 'a')
-    assert_equal '%{a}',          I18n.t('%%{a}',            :a    => 'a')
-    assert_equal '%{a}',          I18n.t('%%{a}')
-    assert_equal '%%{a}',         I18n.t('%%%{a}',           :a    => 'a')
-    assert_equal '%%{a}',         I18n.t('%%%{a}')
-    assert_equal '\";eval("a")',  I18n.t('\";eval("%{a}")',  :a    => 'a')
-    assert_equal '\";eval("a")',  I18n.t('\";eval("a")%{a}', :a    => '' )
+    assert_equal 'a%{a}',         I18n.t("f", :default => '%{a}%%{a}',        :a    => 'a')
+    assert_equal '%{a}',          I18n.t("f", :default => '%%{a}',            :a    => 'a')
+    assert_equal '%{a}',          I18n.t("f", :default => '%%{a}')
+    assert_equal '%%{a}',         I18n.t("f", :default => '%%%{a}',           :a    => 'a')
+    assert_equal '%%{a}',         I18n.t("f", :default => '%%%{a}')
+    assert_equal '\";eval("a")',  I18n.t("f", :default => '\";eval("%{a}")',  :a    => 'a')
+    assert_equal '\";eval("a")',  I18n.t("f", :default => '\";eval("a")%{a}', :a    => '' )
   end
 
   test "translate raises Disabled if locale is false" do

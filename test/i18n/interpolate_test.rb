@@ -50,7 +50,7 @@ class I18nInterpolateTest < I18n::TestCase
 
   test "% acts as escape character in String interpolation" do
     assert_equal "%{first}", I18n.interpolate("%%{first}", :first => 'Masao')
-    assert_equal "%%{first}", I18n.interpolate("%%%{first}", :first => 'Masao')
+    assert_equal "%Masao", I18n.interpolate("%%%{first}", :first => 'Masao')
     assert_equal "% 1", I18n.interpolate("%% %<num>d", :num => 1.0)
     assert_equal "%{num} %<num>d", I18n.interpolate("%%{num} %%<num>d", :num => 1)
 
